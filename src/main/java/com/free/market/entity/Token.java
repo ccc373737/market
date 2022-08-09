@@ -18,6 +18,8 @@ public class Token {
 
     private String owner;
 
+    private String description;
+
     private TokenStatus status;
 
     private Long createDate;
