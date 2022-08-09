@@ -17,6 +17,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -142,12 +143,16 @@ public class MarketController {
 
     @GetMapping("/getMyToken")
     public List<Token> getMyToken(@RequestParam String tokenAddress,
-                                  @RequestParam String owner) {
-        Query query = new Query(new Criteria().andOperator(
+                                  @RequestParam String owner,
+                                  @RequestParam (required = false) TokenStatus status) {
+        Criteria criteria = new Criteria().andOperator(
                 Criteria.where("tokenAddress").is(tokenAddress),
-                Criteria.where("owner").is(owner)));
+                Criteria.where("owner").is(owner));
 
-        return mongoTemplate.find(query, Token.class);
+        if (status != null) {
+            criteria.andOperator(Criteria.where("status").is(status));
+        }
+        return mongoTemplate.find(new Query(criteria), Token.class);
     }
 
     @GetMapping("/getTokenList")
