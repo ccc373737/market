@@ -33,7 +33,8 @@ public class MarketController {
     public void mint(@RequestParam String tokenAddress,
                      @RequestParam String tokenId,
                      @RequestParam String owner,
-                     @RequestParam String url) {
+                     @RequestParam String url,
+                     @RequestParam String description) {
         if (mongoTemplate.findOne(queryByAddressAndToken(tokenAddress, tokenId), Token.class) != null) {
             log.error(tokenId, "token is alreay exist!");
             return;
@@ -44,6 +45,7 @@ public class MarketController {
                 .setTokenId(tokenId)
                 .setUrl(url)
                 .setOwner(owner)
+                .setDescription(description)
                 .setStatus(TokenStatus.NORMAL)
                 .setCreateDate(System.currentTimeMillis())
                 .setUpdateDate(System.currentTimeMillis());
