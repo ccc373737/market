@@ -1,4 +1,4 @@
-package com.example.market.menum;
+package com.free.market.menum;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

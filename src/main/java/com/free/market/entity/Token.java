@@ -1,11 +1,13 @@
-package com.example.market.entity;
+package com.free.market.entity;
 
-import com.example.market.menum.TokenStatus;
+import com.free.market.menum.TokenStatus;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Accessors(chain = true)
+@Document(collection = "token")
 public class Token {
 
     private String tokenAddress;
@@ -19,5 +21,7 @@ public class Token {
     private TokenStatus status;
 
     private Long createDate;
+
+    private Long updateDate;
 
 }
